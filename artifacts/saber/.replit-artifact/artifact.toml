@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "سابر"
+version = "1.0.0"
+id = "artifacts/saber"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23753
+
+[services.development]
+run = "pnpm --filter @workspace/saber run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/saber", "run", "build" ]
+publicDir = "artifacts/saber/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23753"
+BASE_PATH = "/"
