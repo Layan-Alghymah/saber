@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "@/context/ThemeContext";
 import type { VerificationResult } from "@/data/mockData";
 import HomePage from "@/pages/HomePage";
 import LoadingPage from "@/pages/LoadingPage";
@@ -12,13 +13,13 @@ const queryClient = new QueryClient();
 function NotFound() {
   const [, setLocation] = useLocation();
   return (
-    <div className="min-h-screen flex items-center justify-center" dir="rtl">
+    <div className="min-h-screen bg-page flex items-center justify-center" dir="rtl">
       <div className="text-center space-y-4">
-        <div className="text-6xl font-black" style={{ color: "rgba(255,255,255,0.15)" }}>٤٠٤</div>
-        <h1 className="text-xl font-bold text-white">الصفحة غير موجودة</h1>
+        <div className="text-6xl font-black" style={{ color: "var(--c-text-muted)" }}>٤٠٤</div>
+        <h1 className="text-xl font-bold" style={{ color: "var(--c-text-1)" }}>الصفحة غير موجودة</h1>
         <button
           onClick={() => setLocation("/")}
-          className="btn-green px-6 py-2 rounded-xl font-semibold"
+          className="btn-green px-6 py-2 font-semibold"
         >
           العودة للرئيسية
         </button>
@@ -50,9 +51,11 @@ function AppRoutes() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-        <AppRoutes />
-      </WouterRouter>
+      <ThemeProvider>
+        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          <AppRoutes />
+        </WouterRouter>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

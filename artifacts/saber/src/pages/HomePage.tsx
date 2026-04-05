@@ -3,6 +3,8 @@ import { useLocation } from "wouter";
 import { simulateVerification } from "@/data/mockData";
 import type { VerificationResult } from "@/data/mockData";
 import SaberLogo from "@/components/SaberLogo";
+import ThemeToggle from "@/components/ThemeToggle";
+import { useTheme } from "@/context/ThemeContext";
 
 interface HomePageProps {
   onResult: (result: VerificationResult, text: string) => void;
@@ -11,6 +13,7 @@ interface HomePageProps {
 export default function HomePage({ onResult }: HomePageProps) {
   const [newsText, setNewsText] = useState("");
   const [, setLocation] = useLocation();
+  const { isDark } = useTheme();
 
   const handleVerify = () => {
     if (!newsText.trim()) return;
@@ -22,11 +25,11 @@ export default function HomePage({ onResult }: HomePageProps) {
   return (
     <div className="min-h-screen flex flex-col bg-page" dir="rtl">
 
-      {/* ── Header (dark brand) ── */}
-      <header className="brand-header sticky top-0 z-50 shadow-md">
+      {/* ── Header ── */}
+      <header className="brand-header sticky top-0 z-50 shadow-lg">
         <div className="max-w-5xl mx-auto px-5 py-3.5 flex items-center justify-between">
           <SaberLogo size="sm" showText={true} theme="dark" />
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-1.5">
             <button
               className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all"
               style={{ background: "rgba(255,255,255,0.18)" }}
@@ -39,21 +42,21 @@ export default function HomePage({ onResult }: HomePageProps) {
             >
               الأكثر تداولاً
             </button>
+            <ThemeToggle />
           </nav>
         </div>
       </header>
 
-      {/* ── Hero (dark blue) ── */}
+      {/* ── Hero ── */}
       <section className="hero-section py-14 px-4">
         <div className="max-w-2xl mx-auto text-center space-y-5 animate-fade-up">
-          {/* Logo */}
           <div className="flex justify-center mb-2">
             <div
               className="p-5 rounded-3xl"
               style={{
                 background: "rgba(255,255,255,0.1)",
-                border: "1.5px solid rgba(255,255,255,0.2)",
-                boxShadow: "0 0 60px rgba(46,189,89,0.2)",
+                border: "1.5px solid rgba(255,255,255,0.18)",
+                boxShadow: "0 0 60px rgba(46,189,89,0.18)",
               }}
             >
               <SaberLogo size="lg" showText={false} />
@@ -76,17 +79,20 @@ export default function HomePage({ onResult }: HomePageProps) {
             تحقق من{" "}
             <span className="shimmer-green">الأخبار</span>
           </h1>
-          <p className="text-base text-white/65 leading-relaxed max-w-md mx-auto">
+          <p className="text-base leading-relaxed max-w-md mx-auto" style={{ color: "var(--c-hero-text)" }}>
             الصق أي خبر أو معلومة وسيقوم سابر بالتحقق منها فورًا عبر المصادر الرسمية الموثوقة
           </p>
         </div>
       </section>
 
-      {/* ── Input Card (white, floats below hero) ── */}
+      {/* ── Input Card ── */}
       <section className="px-4 -mt-6 pb-8">
         <div className="max-w-2xl mx-auto animate-fade-up delay-100">
           <div className="card p-6 space-y-4">
-            <label className="block text-sm font-semibold" style={{ color: "#374151" }}>
+            <label
+              className="block text-sm font-semibold"
+              style={{ color: "var(--c-text-2)" }}
+            >
               الصق الخبر أو المعلومة هنا
             </label>
             <textarea
@@ -97,7 +103,7 @@ export default function HomePage({ onResult }: HomePageProps) {
               dir="rtl"
             />
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">
+              <span className="text-xs" style={{ color: "var(--c-text-muted)" }}>
                 {newsText.length} حرف
               </span>
               <button
@@ -116,7 +122,7 @@ export default function HomePage({ onResult }: HomePageProps) {
         </div>
       </section>
 
-      {/* ── Feature Cards ── */}
+      {/* ── Features ── */}
       <section className="px-4 pb-12">
         <div className="max-w-2xl mx-auto grid grid-cols-3 gap-4 animate-fade-up delay-200">
           {[
@@ -126,15 +132,15 @@ export default function HomePage({ onResult }: HomePageProps) {
           ].map((f) => (
             <div key={f.label} className="card p-4 text-center space-y-1.5">
               <div className="text-2xl">{f.icon}</div>
-              <div className="text-xs font-bold text-gray-700">{f.label}</div>
-              <div className="text-xs text-slate-400">{f.sub}</div>
+              <div className="text-xs font-bold" style={{ color: "var(--c-text-2)" }}>{f.label}</div>
+              <div className="text-xs" style={{ color: "var(--c-text-muted)" }}>{f.sub}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── Footer ── */}
-      <footer className="mt-auto py-4 text-center text-xs text-slate-400 divider">
+      <footer className="mt-auto py-4 text-center text-xs divider" style={{ color: "var(--c-text-muted)" }}>
         منصة سابر للتحقق من الأخبار — محتوى توضيحي
       </footer>
     </div>
