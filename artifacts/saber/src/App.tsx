@@ -14,11 +14,11 @@ function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center" dir="rtl">
       <div className="text-center space-y-4">
-        <div className="text-6xl font-black text-muted-foreground/30">٤٠٤</div>
-        <h1 className="text-xl font-bold text-foreground">الصفحة غير موجودة</h1>
+        <div className="text-6xl font-black" style={{ color: "rgba(255,255,255,0.15)" }}>٤٠٤</div>
+        <h1 className="text-xl font-bold text-white">الصفحة غير موجودة</h1>
         <button
           onClick={() => setLocation("/")}
-          className="px-6 py-2 bg-primary text-primary-foreground rounded-xl font-medium"
+          className="btn-green px-6 py-2 rounded-xl font-semibold"
         >
           العودة للرئيسية
         </button>
